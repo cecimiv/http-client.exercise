@@ -2,6 +2,8 @@ package no.kristiania.httpclient;
 
 import org.junit.jupiter.api.Test;
 
+import javax.management.Query;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QueryStringTest {
@@ -19,4 +21,19 @@ public class QueryStringTest {
         assertEquals("404", queryString.getParameter("status"));
     }
 
+    @Test
+    void shouldRetrieveParameterByName(){
+    QueryString queryString = new QueryString("text-Hello");
+    assertEquals(null, queryString.getParameter("status"));
+    assertEquals("Hello", queryString.getParameter("text"));
+    }
+
+    @Test
+    void shouldHandleMultipleParameters(){
+        QueryString queryString = new QueryString("text=Hello&status=200");
+        assertEquals("200", queryString.getParameter("status"));
+        assertEquals("Hello", queryString.getParameter("text"));
+    }
 }
+
+
